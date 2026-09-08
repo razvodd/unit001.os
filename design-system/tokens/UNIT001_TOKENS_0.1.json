@@ -1,0 +1,184 @@
+{
+  "name": "UNIT001 / GRID",
+  "version": "0.1",
+  "description": "Global proportional spatial system for UNIT001 OS.",
+  "formula": {
+    "U": "short_side / 40",
+    "short_side": "40U",
+    "margin": "5U",
+    "column": "6U",
+    "columns": 5,
+    "horizontal_structure": "5U / 6U / 6U / 6U / 6U / 6U / 5U"
+  },
+  "modes": {
+    "BASE": {
+      "U": 1,
+      "MARGIN": 5,
+      "COLUMN": 6,
+      "SPACE/01": 1,
+      "SPACE/02": 2,
+      "SPACE/03": 3,
+      "SPACE/04": 4,
+      "SPACE/05": 5,
+      "SPACE/06": 6,
+      "SPACE/08": 8,
+      "SPACE/10": 10,
+      "SPACE/12": 12,
+      "TYPE/SIZE/CANDIDATE": 1,
+      "TYPE/LINE/CANDIDATE": 1.5
+    },
+    "MOBILE / 1080": {
+      "U": 27,
+      "MARGIN": 135,
+      "COLUMN": 162,
+      "SPACE/01": 27,
+      "SPACE/02": 54,
+      "SPACE/03": 81,
+      "SPACE/04": 108,
+      "SPACE/05": 135,
+      "SPACE/06": 162,
+      "SPACE/08": 216,
+      "SPACE/10": 270,
+      "SPACE/12": 324,
+      "TYPE/SIZE/CANDIDATE": 27,
+      "TYPE/LINE/CANDIDATE": 40.5
+    },
+    "PHOTO / 5304": {
+      "U": 132.6,
+      "MARGIN": 663.0,
+      "COLUMN": 795.6,
+      "SPACE/01": 132.6,
+      "SPACE/02": 265.2,
+      "SPACE/03": 397.8,
+      "SPACE/04": 530.4,
+      "SPACE/05": 663.0,
+      "SPACE/06": 795.6,
+      "SPACE/08": 1060.8,
+      "SPACE/10": 1326.0,
+      "SPACE/12": 1591.2,
+      "TYPE/SIZE/CANDIDATE": 132.6,
+      "TYPE/LINE/CANDIDATE": 198.9
+    },
+    "A4 / 210": {
+      "U": 5.25,
+      "MARGIN": 26.25,
+      "COLUMN": 31.5,
+      "SPACE/01": 5.25,
+      "SPACE/02": 10.5,
+      "SPACE/03": 15.75,
+      "SPACE/04": 21.0,
+      "SPACE/05": 26.25,
+      "SPACE/06": 31.5,
+      "SPACE/08": 42.0,
+      "SPACE/10": 52.5,
+      "SPACE/12": 63.0,
+      "TYPE/SIZE/CANDIDATE": 5.25,
+      "TYPE/LINE/CANDIDATE": 7.875
+    },
+    "CARD / 60": {
+      "U": 1.5,
+      "MARGIN": 7.5,
+      "COLUMN": 9.0,
+      "SPACE/01": 1.5,
+      "SPACE/02": 3.0,
+      "SPACE/03": 4.5,
+      "SPACE/04": 6.0,
+      "SPACE/05": 7.5,
+      "SPACE/06": 9.0,
+      "SPACE/08": 12.0,
+      "SPACE/10": 15.0,
+      "SPACE/12": 18.0,
+      "TYPE/SIZE/CANDIDATE": 1.5,
+      "TYPE/LINE/CANDIDATE": 2.25
+    }
+  },
+  "tokens": {
+    "U": {
+      "type": "number",
+      "multiplier_u": 1,
+      "formula": "1U"
+    },
+    "MARGIN": {
+      "type": "number",
+      "multiplier_u": 5,
+      "formula": "5U"
+    },
+    "COLUMN": {
+      "type": "number",
+      "multiplier_u": 6,
+      "formula": "6U"
+    },
+    "SPACE/01": {
+      "type": "number",
+      "multiplier_u": 1,
+      "formula": "1U"
+    },
+    "SPACE/02": {
+      "type": "number",
+      "multiplier_u": 2,
+      "formula": "2U"
+    },
+    "SPACE/03": {
+      "type": "number",
+      "multiplier_u": 3,
+      "formula": "3U"
+    },
+    "SPACE/04": {
+      "type": "number",
+      "multiplier_u": 4,
+      "formula": "4U"
+    },
+    "SPACE/05": {
+      "type": "number",
+      "multiplier_u": 5,
+      "formula": "5U"
+    },
+    "SPACE/06": {
+      "type": "number",
+      "multiplier_u": 6,
+      "formula": "6U"
+    },
+    "SPACE/08": {
+      "type": "number",
+      "multiplier_u": 8,
+      "formula": "8U"
+    },
+    "SPACE/10": {
+      "type": "number",
+      "multiplier_u": 10,
+      "formula": "10U"
+    },
+    "SPACE/12": {
+      "type": "number",
+      "multiplier_u": 12,
+      "formula": "12U"
+    },
+    "TYPE/SIZE/CANDIDATE": {
+      "type": "number",
+      "multiplier_u": 1,
+      "formula": "1U"
+    },
+    "TYPE/LINE/CANDIDATE": {
+      "type": "number",
+      "multiplier_u": 1.5,
+      "formula": "1.5U"
+    }
+  },
+  "locked": [
+    "U = short side / 40",
+    "5 columns",
+    "margin = 5U",
+    "column = 6U",
+    "vertical spacing derives from U",
+    "global tokens only; no local arbitrary spacing",
+    "one proportional system across all carriers",
+    "IBM Plex Mono Regular 400"
+  ],
+  "candidate": [
+    "TYPE/SIZE = 1U",
+    "TYPE/LINE = 1.5U",
+    "baseline",
+    "exact spacing scale",
+    "internal padding"
+  ]
+}
