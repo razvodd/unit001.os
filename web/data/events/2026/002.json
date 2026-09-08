@@ -1,0 +1,20 @@
+{
+  "year": "2026",
+  "id": "002",
+  "type": "BAPTISM",
+  "title": "BAPTISM",
+  "name": "TEST 02",
+  "date": "2026-09-08",
+  "location": "MOSCOW",
+  "status": "READY",
+  "readyDate": "2026-09-12",
+  "archiveUrl": "https://disk.yandex.ru/",
+  "spaceUrl": null,
+  "stats": { "shootingTime": "01:50", "photosTaken": 633, "items": 4 },
+  "items": [
+    { "id": "001", "type": "PHOTO", "preview": true },
+    { "id": "002", "type": "PHOTO", "preview": true },
+    { "id": "003", "type": "VIDEO", "preview": true },
+    { "id": "004", "type": "AUDIO", "preview": true }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "year": "2026",
+  "id": "001",
+  "type": "MODEL",
+  "title": "MODEL READY",
+  "name": "TEST 01",
+  "date": "2026-09-08",
+  "location": "MOSCOW",
+  "status": "PROCESSING",
+  "readyDate": "2026-09-12",
+  "archiveUrl": null,
+  "spaceUrl": null,
+  "stats": { "shootingTime": null, "photosTaken": null, "items": null },
+  "items": [
+    { "id": "001", "type": "PHOTO", "preview": true },
+    { "id": "002", "type": "VIDEO", "preview": true }
+  ]
+}

@@ -1,0 +1,36 @@
+/*
+ * UNIT001 Design System v0.1
+ * Source of truth:
+ *   /design-system/tokens/UNIT001_TOKENS_0.1.json
+ *   /design-system/spec/UNIT001_GRID_SYSTEM_0.1.svg
+ */
+
+:root {
+  /* LOCKED: U = short side / 40 */
+  /* 1vmin = 1% of the short viewport side; 1U = 2.5vmin. */
+  --u: 2.5vmin;
+
+  /* LOCKED spatial tokens */
+  --margin: 12.5vmin;
+  --column: 15vmin;
+  --space-01: var(--u);
+  --space-02: 5vmin;
+  --space-03: 7.5vmin;
+  --space-04: 10vmin;
+  --space-05: 12.5vmin;
+  --space-06: 15vmin;
+  --space-08: 20vmin;
+  --space-10: 25vmin;
+  --space-12: 30vmin;
+
+  /* CANDIDATE: type scale and leading; validate before locking. */
+  --type-size-075: 1.875vmin;
+  --type-size-100: var(--u);
+  --type-size-125: 3.125vmin;
+  --type-line-100: var(--u);
+  --type-line-125: 3.125vmin;
+  --type-line-150: 3.75vmin;
+  --type-line-200: 5vmin;
+
+  --font-family-mono: "IBM Plex Mono", ui-monospace, "Roboto Mono", monospace;
+}

@@ -1,0 +1,32 @@
+/* Page shell uses only global UNIT001 tokens. */
+
+.u-page {
+  box-sizing: border-box;
+  min-block-size: 100vh;
+  padding-block: var(--space-05);
+}
+
+.u-page__frame {
+  box-sizing: border-box;
+  inline-size: calc(
+    var(--margin) + var(--column) + var(--column) + var(--column) +
+    var(--column) + var(--column) + var(--margin)
+  );
+  margin-inline: auto;
+}
+
+.u-page__header,
+.u-page__main,
+.u-page__footer {
+  display: grid;
+  grid-template-columns: repeat(5, var(--column));
+  column-gap: 0;
+}
+
+.u-page__main {
+  margin-block: var(--space-08);
+}
+
+.u-page__footer {
+  margin-block-start: var(--space-12);
+}

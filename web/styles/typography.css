@@ -1,0 +1,38 @@
+/* IBM Plex Mono Regular 400 is LOCKED. Sizes and line-height are CANDIDATE. */
+
+html {
+  font-family: var(--font-family-mono);
+  font-weight: 400;
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font: inherit;
+}
+
+body {
+  font-size: var(--type-size-100);
+  line-height: var(--type-line-150);
+}
+
+.u-type-micro {
+  font-size: var(--type-size-075);
+  line-height: var(--type-line-100);
+}
+
+.u-type-body {
+  font-size: var(--type-size-100);
+  line-height: var(--type-line-150);
+}
+
+.u-type-display {
+  font-size: var(--type-size-125);
+  line-height: var(--type-line-150);
+}

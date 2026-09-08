@@ -1,0 +1,133 @@
+/* UNIT001.SYSTEMS / TRACE */
+
+html,
+body {
+  block-size: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: #000000;
+  background: #FFFFFF;
+}
+
+.trace-screen {
+  --trace-inset: var(--space-02);
+  box-sizing: border-box;
+  min-block-size: 100dvh;
+  position: relative;
+  padding: var(--trace-inset);
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.trace-screen p {
+  margin: 0;
+}
+
+.trace-screen__id,
+.trace-screen__status,
+.trace-screen__meta,
+.trace-screen__contact {
+  position: absolute;
+}
+
+.trace-screen__id {
+  inset-block-start: var(--trace-inset);
+  inset-inline-start: var(--trace-inset);
+}
+
+.trace-screen__status {
+  inset-block-start: var(--trace-inset);
+  inset-inline-end: var(--trace-inset);
+}
+
+.trace-screen__meta {
+  inset-block-end: var(--trace-inset);
+  inset-inline-start: var(--trace-inset);
+  display: grid;
+  row-gap: 0;
+}
+
+.trace-screen__contact {
+  inset-block-end: var(--trace-inset);
+  inset-inline-end: var(--trace-inset);
+  display: grid;
+  justify-items: end;
+  row-gap: var(--space-02);
+}
+
+.trace-screen a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.trace-screen a:focus-visible,
+.trace-screen a:hover {
+  text-decoration: underline;
+}
+
+#trace-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.trace-segment {
+  position: absolute;
+  block-size: 1px;
+  transform-origin: left center;
+  background: #000000;
+  animation: trace-expire 420ms linear forwards;
+}
+
+#trace-marker {
+  position: fixed;
+  inline-size: calc(var(--space-01) / 2);
+  block-size: calc(var(--space-01) / 2);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+#trace-marker::before,
+#trace-marker::after {
+  content: "";
+  position: absolute;
+  background: #000000;
+}
+
+#trace-marker::before {
+  inset-block-start: 50%;
+  inset-inline: 0;
+  block-size: 1px;
+}
+
+#trace-marker::after {
+  inset-inline-start: 50%;
+  inset-block: 0;
+  inline-size: 1px;
+}
+
+#trace-marker[hidden] {
+  display: none;
+}
+
+.trace-screen__status-dot {
+  animation: status-pulse 1s steps(1, end) infinite;
+}
+
+@keyframes trace-expire {
+  to { opacity: 0; }
+}
+
+@keyframes status-pulse {
+  50% { visibility: hidden; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trace-screen {
+    cursor: none;
+  }
+}

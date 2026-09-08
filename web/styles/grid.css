@@ -1,0 +1,13 @@
+/* LOCKED: 5U / 6U / 6U / 6U / 6U / 6U / 5U */
+
+.u-grid {
+  display: grid;
+  grid-template-columns: repeat(5, var(--column));
+  column-gap: 0;
+}
+
+.u-span-1 { grid-column: span 1; }
+.u-span-2 { grid-column: span 2; }
+.u-span-3 { grid-column: span 3; }
+.u-span-4 { grid-column: span 4; }
+.u-span-5 { grid-column: span 5; }
