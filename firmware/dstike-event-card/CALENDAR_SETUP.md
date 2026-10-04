@@ -15,7 +15,8 @@ from one separate Google Calendar, then turns Wi-Fi off.
 
 ## One-time watch setup
 
-1. Upload DSTIKE_Event_Card.ino.
+1. In Arduino Library Manager install QRCode by Richard Moore, then upload
+   DSTIKE_Event_Card.ino.
 2. Hold the watch OK button for 3 seconds.
 3. On the phone connect to Wi-Fi UNIT001 SETUP. Password: unit001watch.
 4. Open http://192.168.4.1.
@@ -25,5 +26,5 @@ The watch downloads the next 10 events after setup and then no more than once
 per 6 hours near the saved Wi-Fi. Away from Wi-Fi it continues from the saved
 schedule. To refresh after calendar edits now, restart it near home Wi-Fi.
 
-Short OK: TIME - NEXT EVENT - UNIT001.
+Short OK: NEXT EVENT - QR - UNIT001 SYSTEM.
 Hold OK 3 seconds: phone setup.

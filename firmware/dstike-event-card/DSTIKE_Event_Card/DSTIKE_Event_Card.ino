@@ -10,6 +10,7 @@
 #include <WiFiClientSecureBearSSL.h>
 #include <Wire.h>
 #include <U8g2lib.h>
+#include <qrcode.h>
 
 constexpr uint8_t OLED_SDA=5,OLED_SCL=4,BUTTON_OK=14,RGB_PIN=15,RTC=0x68;
 constexpr uint8_t MAX_EVENTS=10,TITLE_SIZE=13;
@@ -20,7 +21,7 @@ struct DateTime{uint16_t year;uint8_t month,day,hour,minute,second,weekday;};
 struct Event{char title[TITLE_SIZE];uint16_t year;uint8_t month,day,hour,minute;};
 struct Store{uint32_t magic;char ssid[33],password[65],url[241];uint32_t lastSync;uint8_t count;Event event[MAX_EVENTS];};
 Store store; DateTime nowTime;
-enum Page:uint8_t{TIME,NEXT,UNIT,PAGE_COUNT}; Page page=TIME;
+enum Page:uint8_t{NEXT,QR,SYSTEM,PAGE_COUNT}; Page page=NEXT;
 bool setupMode=false,buttonWasDown=false; uint32_t setupAt=0,buttonAt=0,restartAt=0,lastRtc=0,lastSyncAttempt=0; uint8_t drawnSecond=255; Page drawnPage=PAGE_COUNT;
 
 void wifiOff(){WiFi.disconnect(true);WiFi.mode(WIFI_OFF);WiFi.forceSleepBegin();delay(1);}
@@ -48,10 +49,19 @@ void setupStart(){wifiWake();WiFi.persistent(false);WiFi.mode(WIFI_AP);WiFi.soft
 void setupStop(){web.stop();setupMode=false;wifiOff();}
 
 const Event*nextEvent(){const Event*result=nullptr;uint32_t now=seconds(nowTime);for(uint8_t i=0;i<store.count;i++)if(seconds(store.event[i])>=now&&(!result||seconds(store.event[i])<seconds(*result)))result=&store.event[i];return result;}
-void drawTime(){char a[16],b[16];snprintf(a,sizeof(a),"%02u %s",nowTime.day,month(nowTime.month));snprintf(b,sizeof(b),"%02u:%02u:%02u",nowTime.hour,nowTime.minute,nowTime.second);display.drawStr(0,19,a);display.drawStr(0,41,b);display.drawStr(0,63,weekday(nowTime.weekday));}
 void drawNext(){const Event*e=nextEvent();if(!e){display.drawStr(0,19,"NO EVENTS");display.drawStr(0,41,"CALENDAR");display.drawStr(0,63,"OFFLINE");return;}char a[20],b[16];uint32_t left=seconds(*e)-seconds(nowTime);snprintf(a,sizeof(a),"%02u %s %02u:%02u",e->day,month(e->month),e->hour,e->minute);snprintf(b,sizeof(b),"T-%02lu:%02lu:%02lu",left/3600UL,(left%3600UL)/60UL,left%60UL);display.drawStr(0,19,e->title);display.drawStr(0,41,a);display.drawStr(0,63,b);}
-void drawUnit(){display.drawStr(0,19,"UNIT001");display.drawStr(0,41,"CALENDAR");display.drawStr(0,63,setupMode?"192.168.4.1":"HOLD OK");}
-void render(){display.clearBuffer();display.setFont(u8g2_font_10x20_tf);if(page==TIME)drawTime();else if(page==NEXT)drawNext();else drawUnit();display.sendBuffer();}
+void drawQR(){
+  uint8_t data[qrcode_getBufferSize(1)];
+  QRCode code;
+  qrcode_initText(&code,data,1,ECC_LOW,"HTTPS://T.ME/U001STM");
+  constexpr uint8_t scale=2,quiet=4,left=35,top=3;
+  display.drawBox(left,top,58,58);
+  display.setDrawColor(0);
+  for(uint8_t y=0;y<code.size;y++)for(uint8_t x=0;x<code.size;x++)if(qrcode_getModule(&code,x,y))display.drawBox(left+(x+quiet)*scale,top+(y+quiet)*scale,scale,scale);
+  display.setDrawColor(1);
+}
+void drawSystem(){char events[16],time[16];snprintf(events,sizeof(events),"%02u EVENTS",store.count);snprintf(time,sizeof(time),"%02u:%02u:%02u",nowTime.hour,nowTime.minute,nowTime.second);display.drawStr(0,19,"UNIT001");display.drawStr(0,41,events);display.drawStr(0,63,time);}
+void render(){display.clearBuffer();if(page==QR)drawQR();else{display.setFont(u8g2_font_10x20_tf);if(page==NEXT)drawNext();else drawSystem();}display.sendBuffer();}
 
 void setup(){pinMode(BUTTON_OK,INPUT_PULLUP);pinMode(RGB_PIN,OUTPUT);digitalWrite(RGB_PIN,LOW);loadStore();Wire.begin(OLED_SDA,OLED_SCL);display.begin();display.setContrast(1);if(readRTC(nowTime))render();else{display.clearBuffer();display.setFont(u8g2_font_10x20_tf);display.drawStr(0,19,"RTC ERROR");display.sendBuffer();}if(store.url[0]&&syncDue()){lastSyncAttempt=seconds(nowTime);syncCalendar();}else wifiOff();}
 void loop(){if(restartAt&&millis()>=restartAt)ESP.restart();if(setupMode){web.handleClient();if(millis()-setupAt>=SETUP_MS)setupStop();}bool down=digitalRead(BUTTON_OK)==LOW;if(down&&!buttonWasDown)buttonAt=millis();if(!down&&buttonWasDown){uint32_t held=millis()-buttonAt;if(held>=HOLD_MS&&!setupMode)setupStart();else if(held<HOLD_MS&&!setupMode)page=static_cast<Page>((page+1)%PAGE_COUNT);}buttonWasDown=down;if(millis()-lastRtc>=1000){lastRtc=millis();DateTime fresh;if(readRTC(fresh)){nowTime=fresh;if(!setupMode&&store.url[0]&&syncDue()){lastSyncAttempt=seconds(nowTime);syncCalendar();}}}if(nowTime.second!=drawnSecond||page!=drawnPage||setupMode){render();drawnSecond=nowTime.second;drawnPage=page;}delay(25);}
